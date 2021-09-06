@@ -61,15 +61,16 @@ jobs:
         - run:
             name: Prepare K8S template
             command: |
-              rm -rf .k8s/.generated && mkdir -p .k8s/.generated
-              for f in .k8s/template/deployment.yaml
+              ls 
+              rm -rf .k8s/.generated && mkdir -p kube/.k8s/.generated
+              for f in  kube/.k8s/template/deployment.yml
                 do
-                envsubst < $f > ".k8s/.generated/$(basename $f)"
+                envsubst < $f > "kube/.k8s/.generated/$(basename $f)"
               done
         - run:
             name: Deploy
             command: |
-              kubectl apply -f .k8s/.generated/
+              kubectl apply -f kube/.k8s/.generated/
               kubectl get pod
 workflows:
   default:
