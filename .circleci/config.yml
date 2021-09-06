@@ -132,8 +132,8 @@ workflows:
           account-url: AWS_ECR_URL
           region: AWS_DEFAULT_REGION
           repo: capstone-project
-          dockerfile: ~/circleci/project/Dockerfile
-          path: ~/circleci/project/
+          dockerfile: ~/project/Dockerfile
+          path: ~/project/
           tag: ${CIRCLE_SHA1}
           requires: [build-push-docker-image]
 
