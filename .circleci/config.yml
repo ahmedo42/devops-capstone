@@ -13,11 +13,6 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 19.03.13
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
       - run:
           name: install dependencies
           command: |
@@ -137,9 +132,10 @@ workflows:
           account-url: AWS_ECR_URL
           region: AWS_DEFAULT_REGION
           repo: capstone-project
-          dockerfile: project/Dockerfile
-          path: project/
+          dockerfile: ~/circleci/project/Dockerfile
+          path: ~/circleci/project/
           tag: ${CIRCLE_SHA1}
+          requires: [build-push-docker-image]
 
       - aws-eks/create-cluster:
           cluster-name: capstone-project-${CIRCLE_WORKFLOW_ID}
