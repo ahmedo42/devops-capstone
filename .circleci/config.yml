@@ -74,6 +74,6 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-and-push-docker-image:
+      - build-and-push-docker-image
       - deploy:
           requires: [build-and-push-docker-image]
