@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   aws-eks: circleci/aws-eks@1.1.0
-  aws-ecr: circleci/aws-ecr@3.1.0
+  aws-ecr: circleci/aws-ecr@6.7.0
   kubernetes: circleci/kubernetes@0.4.0
 
 jobs:
@@ -127,13 +127,13 @@ workflows:
     jobs:
       - build-push-docker-image
 
-      - aws-ecr/build_and_push_image:
+      - aws-ecr/build-and-push-image:
           name: build-and-push-image-ecr
           account-url: AWS_ECR_URL
           region: AWS_DEFAULT_REGION
           repo: capstone-project
-          dockerfile: ~/project/Dockerfile
-          path: ~/project/
+          dockerfile: Dockerfile
+          path: .
           tag: ${CIRCLE_SHA1}
           requires: [build-push-docker-image]
 
